@@ -1,5 +1,7 @@
-import org.apache.arrow.vector.types.pojo.ArrowType
+package org.gpanda70.squery.datatypes
+
 import org.apache.arrow.vector.types.FloatingPointPrecision
+import org.apache.arrow.vector.types.pojo.ArrowType
 
 /**
  * This object provides constants that reference supported Arrow data types
