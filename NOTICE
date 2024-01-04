@@ -1,0 +1,5 @@
+This product includes includes software from the how-query-engines-work project (Apache 2.0)
+https://github.com/andygrove/how-query-engines-work
+
+Modifications made:
+- Translated the project from Kotlin to Scala
