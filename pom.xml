@@ -13,9 +13,9 @@
   </modules>
 
   <properties>
-    <maven.compiler.source>1.11</maven.compiler.source>
-    <maven.compiler.target>1.11</maven.compiler.target>
-    <java.version>${maven.compiler.source}</java.version>
+<!--    <maven.compiler.source>1.11</maven.compiler.source>-->
+<!--    <maven.compiler.target>1.11</maven.compiler.target>-->
+    <java.version>1.11</java.version>
     <encoding>UTF-8</encoding>
     <scala.version>2.13.12</scala.version>
     <scala.compat.version>2.13</scala.compat.version>
@@ -113,7 +113,7 @@
           <junitxml>.</junitxml>
           <filereports>TestSuiteReport.txt</filereports>
           <!-- Comma separated list of JUnit test class names to execute -->
-          <jUnitClasses>samples.AppTest</jUnitClasses>
+<!--          <jUnitClasses>samples.AppTest</jUnitClasses>-->
         </configuration>
         <executions>
           <execution>
