@@ -1,5 +1,6 @@
+package org.gpanda70.squery.datatypes
+
 import org.gpanda70.squery.datatypes.ArrowTypes.Int8Type
-import org.gpanda70.squery.datatypes.LiteralValueVector
 import org.scalatest.funsuite.AnyFunSuite
 
 class LiteralValueVectorSuite extends AnyFunSuite{
