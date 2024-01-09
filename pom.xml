@@ -10,6 +10,7 @@
 
   <modules>
     <module>datatypes</module>
+    <module>datasource</module>
   </modules>
 
   <properties>
