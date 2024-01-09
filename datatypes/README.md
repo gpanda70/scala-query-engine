@@ -1,8 +1,7 @@
 # Datatypes
-Query engines need a way to represent the different types of data it will process. Therefore,
-you can invent your own or use the type system of the queried data source. An engine like Apache Spark
-actually does both: It has data types like StringType, IntegerType, among others, and can infer the schema from
-data sources like Parquet.
+Query engines need ways to represent the different data types they will process. You can invent your own or use the 
+type system of the queried data source. Engines like Apache Spark actually do both: It has data types like 
+StringType, IntegerType, among others, and can infer the schema from data sources like Parquet.
 
 For this project, Apache Arrow is the foundation for our type system.
 
