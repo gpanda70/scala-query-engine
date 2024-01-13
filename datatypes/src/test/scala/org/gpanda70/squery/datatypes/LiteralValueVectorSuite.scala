@@ -6,7 +6,7 @@ import org.scalatest.funsuite.AnyFunSuite
 class LiteralValueVectorSuite extends AnyFunSuite{
 
   test("getValue should return scalar value") {
-    val value = 42
+    val value = Some(42)
     val size = 10
 
     val literalValueVector = new LiteralValueVector(Int8Type, value, size)
@@ -16,7 +16,7 @@ class LiteralValueVectorSuite extends AnyFunSuite{
   }
 
   test("getValue should throw IndexOutOfBounds exception for invalid index") {
-    val value = 42
+    val value = Some(42)
     val size = 10
 
     val literalValueVector = new LiteralValueVector(Int8Type, value, size)

@@ -9,7 +9,7 @@ import org.apache.arrow.vector.types.pojo.ArrowType
  */
 trait ColumnVector {
   def getType(): ArrowType
-  def getValue(i: Int): Any
+  def getValue(i: Int): Option[Any]
   def getSize(): Int
 
 }

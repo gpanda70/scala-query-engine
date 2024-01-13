@@ -9,11 +9,11 @@ import org.apache.arrow.vector.types.pojo.ArrowType
  * @param value The scalar value that will represent the vector
  * @param size The size of the scalar value
  */
-class LiteralValueVector(val arrowType: ArrowType, val value: Any, val size: Int) extends ColumnVector {
+class LiteralValueVector(val arrowType: ArrowType, val value: Option[Any], val size: Int) extends ColumnVector {
 
   override def getType(): ArrowType = arrowType
 
-  override def getValue(i: Int): Any = {
+  override def getValue(i: Int): Option[Any] = {
     val isOutOfBounds = (i<0 || i>=size)
     if (isOutOfBounds) throw new IndexOutOfBoundsException
     value

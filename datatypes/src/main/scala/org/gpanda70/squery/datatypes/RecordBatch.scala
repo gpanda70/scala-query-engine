@@ -24,9 +24,9 @@ class RecordBatch(val schema: Schema, val fields: List[ColumnVector]){
         val value = v.getValue(rowIndex)
 
         value match {
-          case null => stringBuilder.append("null")
-          case bytes: Array[Byte] => stringBuilder.append(new String(bytes))
-          case _ => stringBuilder.append(value)
+          case None => stringBuilder.append("null")
+          case Some(bytes: Array[Byte]) => stringBuilder.append(new String(bytes))
+          case Some(other) => stringBuilder.append(other)
         }
       }
       stringBuilder.append("\n")

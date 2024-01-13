@@ -5,10 +5,10 @@ import org.gpanda70.squery.datatypes.ArrowTypes.{Int8Type, StringType}
 import org.gpanda70.squery.datatypes.RecordBatch
 import org.scalatest.funsuite.AnyFunSuite
 
-class MockColumnVector(val arrowType: ArrowType, val value: Array[Any]) extends ColumnVector {
+class MockColumnVector(val arrowType: ArrowType, val value: Array[Option[Any]]) extends ColumnVector {
   override def getType(): ArrowType = arrowType
 
-  override def getValue(i: Int): Any = value(i)
+  override def getValue(i: Int): Option[Any] = value(i)
 
   override def getSize(): Int = value.length
 }
@@ -19,8 +19,8 @@ class RecordBatchSuite extends AnyFunSuite{
     )
 
     val mockColumnVectors = List(
-      new MockColumnVector(schema.fields(0).dataType, Array(40,22,33)),
-      new MockColumnVector(schema.fields(1).dataType, Array("John","Mary","George"))
+      new MockColumnVector(schema.fields(0).dataType, Array(Some(40),Some(22),Some(33))),
+      new MockColumnVector(schema.fields(1).dataType, Array(Some("John"),Some("Mary"), Some("George")))
     )
     val recordBatch = new RecordBatch(schema, mockColumnVectors)
     assert(recordBatch.rowCount() === 3)
@@ -32,8 +32,8 @@ class RecordBatchSuite extends AnyFunSuite{
     )
 
     val mockColumnVectors = List(
-      new MockColumnVector(schema.fields(0).dataType, Array(40,22,33)),
-      new MockColumnVector(schema.fields(1).dataType, Array("John","Mary","George"))
+      new MockColumnVector(schema.fields(0).dataType, Array(Some(40),Some(22),Some(33))),
+      new MockColumnVector(schema.fields(1).dataType, Array(Some("John"),Some("Mary"), Some("George")))
     )
     val recordBatch = new RecordBatch(schema, mockColumnVectors)
     assert(recordBatch.columnCount() === 2)
@@ -45,8 +45,8 @@ class RecordBatchSuite extends AnyFunSuite{
     )
 
     val mockColumnVectors = List(
-      new MockColumnVector(schema.fields(0).dataType, Array(40,22)),
-      new MockColumnVector(schema.fields(1).dataType, Array("John","Mary"))
+      new MockColumnVector(schema.fields(0).dataType, Array(Some(40),Some(22))),
+      new MockColumnVector(schema.fields(1).dataType, Array(Some("John"),Some("Mary")))
     )
     val recordBatch = new RecordBatch(schema, mockColumnVectors)
     assert(recordBatch.field(1) === mockColumnVectors(1))
@@ -58,8 +58,8 @@ class RecordBatchSuite extends AnyFunSuite{
     )
 
     val mockColumnVectors = List(
-      new MockColumnVector(schema.fields(0).dataType, Array(40,22)),
-      new MockColumnVector(schema.fields(1).dataType, Array("John","Mary"))
+      new MockColumnVector(schema.fields(0).dataType, Array(Some(40),Some(22))),
+      new MockColumnVector(schema.fields(1).dataType, Array(Some("John"),Some("Mary")))
     )
     val recordBatch = new RecordBatch(schema, mockColumnVectors)
 
