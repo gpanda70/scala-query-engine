@@ -5,6 +5,13 @@ import scala.collection.mutable.ListBuffer
 import org.apache.arrow.vector.types.pojo.ArrowType
 import org.apache.arrow.vector.types.pojo.{Schema => ArrowSchema, Field => ArrowField, FieldType => ArrowFieldType}
 
+/** Singleton that converts Arrow Schema to [[Schema]]*/
+object SchemaConverter {
+  def fromArrow(arrowSchema: org.apache.arrow.vector.types.pojo.Schema): Schema = {
+    val fields = arrowSchema.getFields.asScala.toList.map(field => Field(field.getName, field.getType))
+    Schema(fields)
+  }
+}
 /**
  * Represents a schema used in a query engine
  * @param fields List of fields that make up the Schema
