@@ -1,13 +1,14 @@
 package org.gpanda70.squery.datasource
-import org.apache.arrow.flatbuf.RecordBatch
+
 import org.apache.arrow.memory.RootAllocator
 import org.apache.arrow.vector.VectorSchemaRoot
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.parquet.arrow.schema.SchemaConverter
-import org.gpanda70.squery.datatypes.{ArrowFieldVector, RecordBatch, Schema}
+import org.gpanda70.squery.datatypes.{ArrowFieldVector, RecordBatch, Schema, Field}
 import org.apache.parquet.hadoop.ParquetFileReader
 import org.apache.parquet.hadoop.util.HadoopInputFile
+import org.apache.parquet.schema.MessageType
 
 import scala.jdk.CollectionConverters.{CollectionHasAsScala, SeqHasAsJava}
 
@@ -15,7 +16,14 @@ import scala.jdk.CollectionConverters.{CollectionHasAsScala, SeqHasAsJava}
 class ParquetDataSource(private val filename: String) extends DataSource {
 
   override def schema(): Schema = {
+    val parquetScan = new ParquetScan(filename, List.empty)
 
+    try {
+      val arrowSchema = new SchemaConverter().fromParquet(parquetScan.schema).getArrowSchema
+      org.gpanda70.squery.datatypes.SchemaConverter.fromArrow(arrowSchema)
+    } finally {
+      parquetScan.close()
+    }
   }
 
   override def scan(projection: List[String]): Iterable[RecordBatch] = new ParquetScan(filename, projection)
@@ -26,10 +34,10 @@ class ParquetScan(filename: String, private val columns: List[String]) extends A
 
   private val reader = ParquetFileReader.open(HadoopInputFile.fromPath(new Path(filename), new Configuration()))
 
-  val schema = reader.getFooter.getFileMetaData.getSchema
+  val schema: MessageType = reader.getFooter.getFileMetaData.getSchema
   override def close(): Unit = reader.close()
 
-  override def iterator: Iterator[RecordBatch] = new ParquetIterator()
+  override def iterator: Iterator[RecordBatch] = new ParquetIterator(reader, columns)
 }
 
 class ParquetIterator(private val reader: ParquetFileReader,
